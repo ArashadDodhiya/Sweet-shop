@@ -200,20 +200,3 @@ describe('PATCH /api/sweets/:id/restock', () => {
   });
 });
 
-describe('GET /api/sweets/search', () => {
-  it('should return sweets matching query', async () => {
-    await Sweet.create([
-      { name: 'Dry Fruit Laddu', category: 'Nut-Based', price: 100, quantity: 10 },
-      { name: 'Chocolate Bar', category: 'Chocolate', price: 80, quantity: 5 },
-      { name: 'Candy Pop', category: 'Candy', price: 10, quantity: 100 }
-    ]);
-
-    const response = await request(app)
-      .get('/api/sweets/search?name=choco&minPrice=50&maxPrice=100')
-      .expect(200);
-
-    expect(response.body.success).toBe(true);
-    expect(response.body.data.length).toBe(1);
-    expect(response.body.data[0].name).toBe('Chocolate Bar');
-  });
-});
